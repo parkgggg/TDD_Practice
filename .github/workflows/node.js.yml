@@ -19,7 +19,7 @@ jobs:
     strategy:
       matrix:
       #설정한 노드 버전들에 대해 모두 steps가 실행된다.
-        node-version: [14.x, 16.x, 18.x]
+        node-version: [16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     #실행할 steps들
@@ -37,3 +37,14 @@ jobs:
     - run: npm run build --if-present
       #npm 테스트
     - run: npm test
+
+    
+    - uses: awact/s3-action@master
+      with:
+        args: --acl public-read --follow-symlinks --delete
+      env:
+        SOURCE_DIR: './build'
+        AWS_REGION: 'ap-northeast-2'
+        AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
