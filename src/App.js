@@ -73,7 +73,7 @@ function App() {
           <button
             style={{ backgroundColor: "blue" }}
             data-testid="onoff-button"
-            onClick={() => setIsDisabled((  qprev) => !prev)}
+            onClick={() => setIsDisabled((prev) => !prev)}
           >
             Click
           </button>
